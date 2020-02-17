@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+body {
+    background-color: white; 
+    color: black ;
+    font-family: calibri;
+    text-align: justify;
+}
+
+h1 {
+    text-align: left;
+}
+
+.pequeno {
+    width: 80%;
+}
+
+.cadastroCliente {
+    width: 25%;
+    height: 40%;
+    border-collapse: collapse ;
+    
+}
+
+table#id {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+}
+
+@media (max-width:900px) {
+    body {
+        background: red;
+    }
+}
