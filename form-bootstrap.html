@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="_css/estilo.css"/>
+
+	<title>Formulário</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Formulário</h1>
+
+        <form class="row" id="formulario">   
+
+            <div class="col-12 col-lg-4">
+                
+                <div class="form-row">
+                    <div class="col col-lg-12">
+                        <div class="form-group">
+                            <label for="InputName">Nome</label> 
+                            <input type="text" class="form-control" name="nome" id="id_nome" placeholder="Seu nome" required/> 
+                            <input type="hidden" class="form-control" name="id" id="id"/>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="form-row">
+                    <div class="col col-lg-12">
+                        <div class="form-group">
+                            <label for="InputEmail">Endereço de email</label> 
+                            <input type="text" class="form-control" name="email" id="id_email" placeholder="nome@exemplo.com" required/> 
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="form-row">
+                    <div class="col col-lg-12"> 
+                        <div class="form-group">
+                            <label for="InputTelefone">Telefone</label>  
+                            <input type="text" class="form-control" name="telefone" id="id_telefone"  placeholder="Seu telefone" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col col-lg-12">
+                        <div class="form-group">
+                          <input class="check-input" type="checkbox" id="autoSizingCheck"/>
+                          <label class="form-check-label" for="autoSizingCheck">Lembrar de mim</label>
+                        </div>
+                    </div> 
+                </div> 
+
+                <div class="row">
+                        <button type="reset" class="m-1 ml-3 btn btn-primary">REDEFINIR</button>
+                        <button type="button" class="m-1 btn btn-primary" onclick="pegavalor()">ENVIAR</button>
+                </div>
+
+            </div>
+
+        </form>
+
+        <hr/>
+
+        <div class="table" id="test">
+            <table id="grid"> 
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Endereço de email</th>
+                        <th scope="col">Telefone</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody1">
+                    
+                </tbody>
+            </table> <!-- /grid -->
+        </div>
+
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        var tr= 0;
+
+        function deleteRow(i){
+            document.getElementById("grid").deleteRow(i);
+        }
+
+        function editRow(i) {
+            console.log(i);
+            var element=document.getElementById(i);
+            console.log(element);
+            document.getElementById("id_nome").value= element.getElementsByClassName('nome')[0].innerHTML;
+            document.getElementById("id_email").value= element.getElementsByClassName('email')[0].innerHTML;
+            document.getElementById("id_telefone").value= element.getElementsByClassName('telefone')[0].innerHTML;
+            document.getElementById("id").value= i;
+        }
+
+        function pegavalor(){
+            var x;
+            //var r=confirm(elemento + ",\nO seu nome está correto?");
+            //if (r==true){
+            var element1 = document.getElementById("id_nome").value;
+            var element2 = document.getElementById("id_email").value;
+            var element3 = document.getElementById("id_telefone").value;
+            var element4 = document.getElementById('id').value;
+
+              if(element4 === ""){
+                var dados = '<tr id="row-'+tr+'">' +
+                '<td class="nome">' + element1 + '</td>' +
+                '<td class="email">' + element2 + '</td>' +
+                '<td class="telefone">' + element3 + '</td>' +
+                '<td>' + '<input type="button" value="edit" class="edit" id="edit_button1" onclick="editRow(\'row-'+tr+'\')">' + '</td>' +
+                '<td>' + '<input type="button" value="delete" class="delete" id="delete_button1" onclick="deleteRow(this.parentNode.parentNode.rowIndex)">' + '</td>' +
+                '</tr>';
+                x=dados;
+                tr++;
+            // }else{
+            //   x="Você pressionou Cancelar!";
+            // }
+                var tbody= document.getElementById("tbody1");
+                tbody.innerHTML = tbody.innerHTML + x;
+              }else{
+                  document.getElementById(element4).getElementsByClassName('nome')[0].innerHTML = element1;
+                  document.getElementById(element4).getElementsByClassName('telefone')[0].innerHTML = element3;
+                  document.getElementById(element4).getElementsByClassName('email')[0].innerHTML = element2;
+              }
+        }
+    </script>
+
+
+</body>
+</html> 
